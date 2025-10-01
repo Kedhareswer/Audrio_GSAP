@@ -9,8 +9,9 @@ export default function useGSAPAnimations(headphoneRef: RefObject<HTMLImageEleme
 
     const isShortHeight = window.screen.height < 1050
 
-    const matchMedia = ScrollTrigger.matchMedia({
-      "(min-width: 991px)": () => {
+    const matchMedia = gsap.matchMedia()
+
+    matchMedia.add("(min-width: 991px)", () => {
         const headphone = headphoneRef.current
         if (!headphone) return
 
@@ -160,11 +161,10 @@ export default function useGSAPAnimations(headphoneRef: RefObject<HTMLImageEleme
           delay: 1,
           ease: 'power1.inOut'
         })
-      }
     })
 
     return () => {
-      matchMedia.kill()
+      matchMedia.revert()
     }
   }, [headphoneRef])
 }
